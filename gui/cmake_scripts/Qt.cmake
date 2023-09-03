@@ -1,7 +1,7 @@
 # Qt base script
 
 if(UNIX)
-	set(QT_INCLUDE "/usr/include/x86_64-linux-gnu/qt5")
+	set(QT_INCLUDE "/usr/include/x86_64-linux-gnu/qt6")
 endif()
 
 if(WIN32)
@@ -13,7 +13,7 @@ if(WIN32)
 		# CMake has an odd policy that links a special link lib for Qt on newer versions of CMake. Enable it so we don't get spammed, and I get to write less
 		cmake_policy(SET CMP0020 NEW)
 	else()
-		message(FATAL_ERROR "--!@ Please define your QT install dir with -DQT_BASEDIR=C:/your/qt5/here")
+		message(FATAL_ERROR "Please define your QT install dir with -DQT_BASEDIR=C:/your/qt6/here")
 	endif()
 endif()	
 
@@ -22,4 +22,3 @@ message("Using ${QT_INCLUDE} as our Qt include dir")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-

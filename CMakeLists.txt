@@ -31,25 +31,32 @@ if(RAYTRACER_BUILD_GUI)
     target_include_directories(${PROJECT_NAME}_gui PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/gui)
 
-    find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui)
-    target_link_libraries(${PROJECT_NAME}_gui PRIVATE Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Widgets Qt${QT_MAJOR_VERSION}::Gui)
+    find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui)
+    target_link_libraries(${PROJECT_NAME}_gui PRIVATE Qt6::Core Qt6::Widgets Qt6::Gui)
     target_include_directories(${PROJECT_NAME}_gui PRIVATE ${QT_INCLUDE} ${QT_INCLUDE}/QtCore ${QT_INCLUDE}/QtWidgets ${QT_INCLUDE}/QtGui)
 
     if(WIN32)
-        configure_file("${QT_BASEDIR}/bin/Qt5Cored.dll"    "${CMAKE_BINARY_DIR}/Qt5Cored.dll"    COPYONLY)
-        configure_file("${QT_BASEDIR}/bin/Qt5Guid.dll"     "${CMAKE_BINARY_DIR}/Qt5Guid.dll"     COPYONLY)
-        configure_file("${QT_BASEDIR}/bin/Qt5Widgetsd.dll" "${CMAKE_BINARY_DIR}/Qt5Widgetsd.dll" COPYONLY)
-        configure_file("${QT_BASEDIR}/bin/Qt5Core.dll"     "${CMAKE_BINARY_DIR}/Qt5Core.dll"     COPYONLY)
-        configure_file("${QT_BASEDIR}/bin/Qt5Gui.dll"      "${CMAKE_BINARY_DIR}/Qt5Gui.dll"      COPYONLY)
-        configure_file("${QT_BASEDIR}/bin/Qt5Widgets.dll"  "${CMAKE_BINARY_DIR}/Qt5Widgets.dll"  COPYONLY)
-        configure_file("${QT_BASEDIR}/plugins/platforms/qwindowsd.dll" "${CMAKE_BINARY_DIR}/platforms/qwindowsd.dll" COPYONLY)
-        configure_file("${QT_BASEDIR}/plugins/platforms/qwindows.dll"  "${CMAKE_BINARY_DIR}/platforms/qwindows.dll"  COPYONLY)
-        configure_file("${QT_BASEDIR}/plugins/styles/qwindowsvistastyled.dll" "${CMAKE_BINARY_DIR}/styles/qwindowsvistastyled.dll" COPYONLY)
-        configure_file("${QT_BASEDIR}/plugins/styles/qwindowsvistastyle.dll"  "${CMAKE_BINARY_DIR}/styles/qwindowsvistastyle.dll"  COPYONLY)
+        if(CMAKE_BUILD_TYPE MATCHES Debug)
+            configure_file("${QT_BASEDIR}/bin/Qt6Cored.dll"    "${CMAKE_BINARY_DIR}/Qt6Cored.dll"    COPYONLY)
+            configure_file("${QT_BASEDIR}/bin/Qt6Guid.dll"     "${CMAKE_BINARY_DIR}/Qt6Guid.dll"     COPYONLY)
+            configure_file("${QT_BASEDIR}/bin/Qt6Widgetsd.dll" "${CMAKE_BINARY_DIR}/Qt6Widgetsd.dll" COPYONLY)
+
+            configure_file("${QT_BASEDIR}/plugins/platforms/qwindowsd.dll" "${CMAKE_BINARY_DIR}/platforms/qwindowsd.dll" COPYONLY)
+
+            configure_file("${QT_BASEDIR}/plugins/styles/qwindowsvistastyled.dll" "${CMAKE_BINARY_DIR}/styles/qwindowsvistastyled.dll" COPYONLY)
+        else()
+            configure_file("${QT_BASEDIR}/bin/Qt6Core.dll"    "${CMAKE_BINARY_DIR}/Qt6Core.dll"    COPYONLY)
+            configure_file("${QT_BASEDIR}/bin/Qt6Gui.dll"     "${CMAKE_BINARY_DIR}/Qt6Gui.dll"     COPYONLY)
+            configure_file("${QT_BASEDIR}/bin/Qt6Widgets.dll" "${CMAKE_BINARY_DIR}/Qt6Widgets.dll" COPYONLY)
+
+            configure_file("${QT_BASEDIR}/plugins/platforms/qwindows.dll" "${CMAKE_BINARY_DIR}/platforms/qwindows.dll" COPYONLY)
+
+            configure_file("${QT_BASEDIR}/plugins/styles/qwindowsvistastyle.dll" "${CMAKE_BINARY_DIR}/styles/qwindowsvistastyle.dll" COPYONLY)
+        endif()
     endif()
 endif()
 
-option(RAYTRACER_BUILD_TESTS "Build tests" ON)
+option(RAYTRACER_BUILD_TESTS "Build Tests" ON)
 if(RAYTRACER_BUILD_TESTS)
     include(FetchContent)
     FetchContent_Declare(
