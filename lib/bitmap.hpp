@@ -46,6 +46,7 @@ struct bitmap {
 
     [[nodiscard]] std::vector<unsigned char> get_raw_png() const;
     bool save(std::string_view filepath) const; // NOLINT(modernize-use-nodiscard)
+
 private:
     short width;
     short height;
