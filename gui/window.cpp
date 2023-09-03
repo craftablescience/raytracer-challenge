@@ -8,7 +8,8 @@
 #include <QToolBar>
 #include "window.hpp"
 
-rt_window::rt_window(QWidget* parent /*= nullptr*/) : QMainWindow(parent) {
+rt_window::rt_window(QWidget* parent)
+        : QMainWindow(parent) {
     this->setWindowTitle("raytracer_gui");
     this->setWindowIcon(QIcon(":/logo.png"));
     this->setMinimumSize(300, 300);
@@ -36,7 +37,7 @@ rt_window::rt_window(QWidget* parent /*= nullptr*/) : QMainWindow(parent) {
         QMessageBox::about(this, tr("About"), "raytracer_gui\n\nmade by craftablescience 2023");
     });
     helpMenu->addAction(this->style()->standardIcon(QStyle::SP_DialogHelpButton), "About Qt", [] {
-        qApp->aboutQt(); // NOLINT(cppcoreguidelines-pro-type-static-cast-downcast)
+        QApplication::aboutQt();
     });
 
     this->shortcuts[static_cast<int>(actions::NEW)] = new QShortcut(QKeySequence::New, this, [&] {
