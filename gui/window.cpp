@@ -36,24 +36,8 @@ rt_window::rt_window(QWidget* parent)
     helpMenu->addAction(this->style()->standardIcon(QStyle::SP_DialogHelpButton), "About Me", [&] {
         QMessageBox::about(this, tr("About"), "raytracer_gui\n\nmade by craftablescience 2023");
     });
-    helpMenu->addAction(this->style()->standardIcon(QStyle::SP_DialogHelpButton), "About Qt", [] {
-        QApplication::aboutQt();
-    });
-
-    this->shortcuts[static_cast<int>(actions::NEW)] = new QShortcut(QKeySequence::New, this, [&] {
-        this->new_file();
-    });
-    this->shortcuts[static_cast<int>(actions::OPEN)] = new QShortcut(QKeySequence::Open, this, [&] {
-        this->open_file();
-    });
-    this->shortcuts[static_cast<int>(actions::SAVE)] = new QShortcut(QKeySequence::Save, this, [&] {
-        this->save_file(false);
-    });
-    this->shortcuts[static_cast<int>(actions::SAVE_AS)] = new QShortcut(QKeySequence::SaveAs, this, [&] {
-        this->save_file(true);
-    });
-    this->shortcuts[static_cast<int>(actions::EXIT)] = new QShortcut(QKeySequence::Close, this, [&] {
-        this->close();
+    helpMenu->addAction(this->style()->standardIcon(QStyle::SP_DialogHelpButton), "About Qt", [&] {
+        QMessageBox::aboutQt(this);
     });
 }
 

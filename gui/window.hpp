@@ -25,21 +25,4 @@ protected:
     [[nodiscard]] bool is_modified() const;
 
     [[nodiscard]] int ask_for_save();
-
-    enum class actions : int {
-        NEW,
-        OPEN,
-        SAVE,
-        SAVE_AS,
-        EXIT,
-
-        SIZE,
-    };
-
-    QShortcut* shortcut(actions act) {
-        return this->shortcuts[static_cast<int>(act)];
-    }
-
-private:
-    std::array<QShortcut*, static_cast<int>(actions::SIZE)> shortcuts{nullptr};
 };
